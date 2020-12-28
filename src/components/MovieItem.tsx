@@ -9,7 +9,7 @@ const MovieItem: React.FC = () => {
   const movie = { title: "fuurr" }
 
   const addMovie = () => {
-    dispatch(addMovieToList({ title: "fooo"}))
+    dispatch(addMovieToList({ id: 2,title: "fooo"}))
   }
 
   return (

@@ -8,6 +8,7 @@ interface MovieState {
 }
 
 interface Movie {
+  id: number;
   title: string;
 }
 
@@ -15,14 +16,17 @@ const initialState: MovieState = {
   title: "ZUpa",
   resultMovies: [
     {
+      id: 14,
       title: "fast and furriest",
     },
     {
+      id: 123,
       title: "fast and furious 7",
     },
   ],
   moviesList: [
     {
+      id: 1,
       title: "foo"
     }
   ],
@@ -41,10 +45,11 @@ export const movieSlice = createSlice({
       state.title = "velizes & fuzirosn";
     },
     addMovieToList: (state: MovieState, action: PayloadAction<Movie>)=> {
-      if (!state.moviesList.includes(action.payload)) {
+      const check = state.moviesList.find(movie => movie.id === action.payload.id)
+      if(check === undefined){
         state.moviesList.push(action.payload)
       }
-      console.log(state.moviesList)
+      
     },
   },
 });
