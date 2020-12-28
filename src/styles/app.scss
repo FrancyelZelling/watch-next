@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.movie-item {
+  display: flex;
+  margin: 15px;
+
+  & img {
+    width: 120px;
+    height: 160px;
+    background-color: red;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+
+    & h2 {
+      margin-bottom: 20px;
+    }
+
+    & button {
+      width: 200px;
+      height: 30px;
+      margin: 8px 0;
+    }
+  }
+}
