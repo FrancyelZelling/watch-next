@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
+import axios from "axios"
 
 interface MovieState {
   title: string;
@@ -32,6 +33,8 @@ const initialState: MovieState = {
   ],
 };
 
+const token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2OTBhOWQ3OWU5OTAwMThjNGU1OTBlNWM2MDQ4YmNmMiIsInN1YiI6IjVmZTg4OGUzY2YxYWZkMDAzYzg1MzNmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.O1dU6Xyq8NDASO58Xhwgemoxw9dmHW-q_Qza2oB968s"
+
 export const movieSlice = createSlice({
   name: "movies",
   initialState,
@@ -49,10 +52,21 @@ export const movieSlice = createSlice({
       if(check === undefined){
         state.moviesList.push(action.payload)
       }
-      
     },
+    findMovie: (state: MovieState, action: PayloadAction<string>) => {
+    const response = axios.get("https://api.themoviedb.org/3/search/movie",{
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json;charset=utf-8"
+      },
+      params:{
+        "language": "pt-BR",
+        "query": "furious"
+      }
+    })
+      .then(res => res.data)
   },
-});
+}});
 
 export const { increment, addMovieToList } = movieSlice.actions;
 
