@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { resultMovies } from "../features/movie/movieSlice";
+import MovieItem from "./MovieItem";
 
 const MovieList: React.FC = () => {
   const movies = useSelector(resultMovies);
@@ -9,7 +10,7 @@ const MovieList: React.FC = () => {
     <div className="">
       <h2>MovieList</h2>
       {movies.map((movie) => (
-        <h2 key={movie.id}>{movie.title}</h2>
+        <MovieItem key={movie.id} movie={movie} />
       ))}
     </div>
   );

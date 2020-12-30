@@ -8,9 +8,10 @@ interface MovieState {
   moviesList: Movie[];
 }
 
-interface Movie {
+export interface Movie {
   id: number;
   title: string;
+  poster_path: string;
 }
 
 interface MovieResults {
@@ -26,16 +27,19 @@ const initialState: MovieState = {
     {
       id: 14,
       title: "fast and furriest",
+      poster_path: "/7mFT1RnjzI83o65kh6NRsg2P8V8.jpg",
     },
     {
       id: 123,
       title: "fast and furious 7",
+      poster_path: "/7mFT1RnjzI83o65kh6NRsg2P8V8.jpg",
     },
   ],
   moviesList: [
     {
       id: 1,
       title: "foo",
+      poster_path: "/7mFT1RnjzI83o65kh6NRsg2P8V8.jpg",
     },
   ],
 };

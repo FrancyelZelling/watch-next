@@ -1,21 +1,19 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { selectTitle, addMovieToList } from "../features/movie/movieSlice";
+import { Movie } from "../features/movie/movieSlice";
 
-const MovieItem: React.FC = () => {
-  const title = useSelector(selectTitle);
-  const dispatch = useDispatch();
+interface MovieItemProps {
+  movie: Movie;
+}
 
-  const addMovie = () => {
-    dispatch(addMovieToList({ id: 2, title: "fooo" }));
-  };
+const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
+  const baseImageUrl = "https://image.tmdb.org/t/p/w300";
 
   return (
     <div className="movie-item">
-      <img src="" alt="" />
+      <img src={baseImageUrl + movie.poster_path} alt="" />
       <div className="details">
-        <h2>{title}</h2>
-        <button onClick={addMovie}>Add To List</button>
+        <h2>{movie.title}</h2>
+        <button>Add To List</button>
         <button>View Details</button>
       </div>
     </div>
