@@ -6,12 +6,14 @@ interface MovieState {
   title: string;
   resultMovies: Movie[];
   moviesList: Movie[];
+  movieResult: Movie | null;
 }
 
 export interface Movie {
   id: number;
   title: string;
   poster_path: string;
+  overview: string;
 }
 
 interface MovieResults {
@@ -28,11 +30,13 @@ const initialState: MovieState = {
       id: 14,
       title: "fast and furriest",
       poster_path: "/7mFT1RnjzI83o65kh6NRsg2P8V8.jpg",
+      overview: "",
     },
     {
       id: 123,
       title: "fast and furious 7",
       poster_path: "/7mFT1RnjzI83o65kh6NRsg2P8V8.jpg",
+      overview: "",
     },
   ],
   moviesList: [
@@ -40,8 +44,10 @@ const initialState: MovieState = {
       id: 1,
       title: "foo",
       poster_path: "/7mFT1RnjzI83o65kh6NRsg2P8V8.jpg",
+      overview: "",
     },
   ],
+  movieResult: null,
 };
 
 const token =
@@ -67,6 +73,9 @@ export const movieSlice = createSlice({
         state.moviesList.push(action.payload);
       }
     },
+    setMovie: (state: MovieState, action: PayloadAction<Movie>) => {
+      state.movieResult = action.payload;
+    },
     setResults: (state: MovieState, action: PayloadAction<Movie[]>) => {
       state.resultMovies = action.payload;
       console.log(action.payload);
@@ -74,13 +83,34 @@ export const movieSlice = createSlice({
   },
 });
 
-export const { increment, addMovieToList, setResults } = movieSlice.actions;
+export const {
+  increment,
+  addMovieToList,
+  setMovie,
+  setResults,
+} = movieSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched
-export const findMovie = (query: string): AppThunk => async (dispatch) => {
+export const findMovie = (id: string): AppThunk => async (dispatch) => {
+  const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    params: {
+      language: "pt-BR",
+    },
+  });
+  console.log(response);
+  const movie: Movie = response.data;
+
+  dispatch(setMovie(movie));
+};
+
+export const searchMovies = (query: string): AppThunk => async (dispatch) => {
   const response = await axios.get(
     "https://api.themoviedb.org/3/search/movie",
     {
@@ -94,7 +124,6 @@ export const findMovie = (query: string): AppThunk => async (dispatch) => {
       },
     }
   );
-  console.log(response);
   const movies: MovieResults = response.data;
 
   dispatch(setResults(movies.results));
@@ -106,5 +135,6 @@ export const findMovie = (query: string): AppThunk => async (dispatch) => {
 export const selectTitle = (state: RootState) => state.movies.title;
 export const moviesList = (state: RootState) => state.movies.moviesList;
 export const resultMovies = (state: RootState) => state.movies.resultMovies;
+export const movieResult = (state: RootState) => state.movies.movieResult;
 
 export default movieSlice.reducer;

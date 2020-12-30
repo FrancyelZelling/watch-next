@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
-import { findMovie } from "../features/movie/movieSlice";
+import { searchMovies } from "../features/movie/movieSlice";
 
 const SearchBar: React.FC = () => {
   const [text, setText] = useState("");
@@ -12,7 +12,7 @@ const SearchBar: React.FC = () => {
   };
 
   const onSubmit = () => {
-    dispatch(findMovie(text));
+    dispatch(searchMovies(text));
   };
 
   return (

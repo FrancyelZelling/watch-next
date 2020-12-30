@@ -8,7 +8,7 @@ const MovieList: React.FC = () => {
 
   return (
     <div className="">
-      <h2>MovieList</h2>
+      <h2>Results</h2>
       {movies.map((movie) => (
         <MovieItem key={movie.id} movie={movie} />
       ))}
@@ -17,4 +17,3 @@ const MovieList: React.FC = () => {
 };
 
 export default MovieList;
-
