@@ -73,6 +73,13 @@ export const movieSlice = createSlice({
         state.moviesList.push(action.payload);
       }
     },
+    removeMovieFromList: (state: MovieState, action: PayloadAction<number>) => {
+      const index = state.moviesList.findIndex(
+        (movie) => movie.id === action.payload
+      );
+      console.log(index);
+      state.moviesList.splice(index, 1);
+    },
     setMovie: (state: MovieState, action: PayloadAction<Movie>) => {
       state.movieResult = action.payload;
     },
@@ -86,6 +93,7 @@ export const movieSlice = createSlice({
 export const {
   increment,
   addMovieToList,
+  removeMovieFromList,
   setMovie,
   setResults,
 } = movieSlice.actions;
