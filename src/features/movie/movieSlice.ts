@@ -7,6 +7,7 @@ interface MovieState {
   resultMovies: Movie[];
   moviesList: Movie[];
   movieResult: Movie | null;
+  loggedIn: boolean;
 }
 
 export interface Movie {
@@ -48,6 +49,7 @@ const initialState: MovieState = {
     },
   ],
   movieResult: null,
+  loggedIn: false,
 };
 
 const token =
@@ -87,6 +89,9 @@ export const movieSlice = createSlice({
       state.resultMovies = action.payload;
       console.log(action.payload);
     },
+    setLogin: (state: MovieState, action: PayloadAction<boolean>) => {
+      state.loggedIn = action.payload;
+    },
   },
 });
 
@@ -96,6 +101,7 @@ export const {
   removeMovieFromList,
   setMovie,
   setResults,
+  setLogin,
 } = movieSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -144,5 +150,6 @@ export const selectTitle = (state: RootState) => state.movies.title;
 export const moviesList = (state: RootState) => state.movies.moviesList;
 export const resultMovies = (state: RootState) => state.movies.resultMovies;
 export const movieResult = (state: RootState) => state.movies.movieResult;
+export const loggedIn = (state: RootState) => state.movies.loggedIn;
 
 export default movieSlice.reducer;
