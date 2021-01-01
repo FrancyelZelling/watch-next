@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   Movie,
   addMovieToList,
+  setLocalStorageMovies,
   removeMovieFromList,
 } from "../features/movie/movieSlice";
 
@@ -18,6 +19,7 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
 
   const addToList = () => {
     dispatch(addMovieToList(movie));
+    dispatch(setLocalStorageMovies());
   };
 
   const removeMovie = () => {

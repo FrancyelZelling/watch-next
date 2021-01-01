@@ -1,7 +1,6 @@
 import React from "react";
 import MainPage from "./components/MainPage";
 import LoginPage from "./components/LoginPage";
-import MovieDetails from "./components/MovieDetails";
 //import { Counter } from "./features/counter/Counter";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -15,10 +14,11 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
-          {logged ? <MainPage /> : <LoginPage />}
-        </Route>
-        <Route path="/movie/:id" component={MovieDetails} />
+        {logged ? (
+          <Route to="/home" component={MainPage} />
+        ) : (
+          <Route exact path="/" component={LoginPage} />
+        )}
       </Switch>
     </Router>
   );

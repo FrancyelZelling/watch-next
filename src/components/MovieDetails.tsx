@@ -5,7 +5,7 @@ import { findMovie, movieResult } from "../features/movie/movieSlice";
 import MovieComponent from "./MovieComponent";
 
 const MovieDetails: React.FC = (props) => {
-  const { id } = useParams();
+  const { id } = useParams<{id: string}>();
   const movie = useSelector(movieResult);
   const dispatch = useDispatch();
 

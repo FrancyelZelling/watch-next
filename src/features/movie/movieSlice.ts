@@ -8,6 +8,7 @@ interface MovieState {
   moviesList: Movie[];
   movieResult: Movie | null;
   loggedIn: boolean;
+  user: string | null;
 }
 
 export interface Movie {
@@ -24,30 +25,19 @@ interface MovieResults {
   total_results: number;
 }
 
+interface LocalStorageMovies {
+  username: string;
+  movies: Movie[];
+}
+
+const keyLSMovies = "movies";
+const keyLSUser = "username";
+
 const initialState: MovieState = {
   title: "ZUpa",
-  resultMovies: [
-    {
-      id: 14,
-      title: "fast and furriest",
-      poster_path: "/7mFT1RnjzI83o65kh6NRsg2P8V8.jpg",
-      overview: "",
-    },
-    {
-      id: 123,
-      title: "fast and furious 7",
-      poster_path: "/7mFT1RnjzI83o65kh6NRsg2P8V8.jpg",
-      overview: "",
-    },
-  ],
-  moviesList: [
-    {
-      id: 1,
-      title: "foo",
-      poster_path: "/7mFT1RnjzI83o65kh6NRsg2P8V8.jpg",
-      overview: "",
-    },
-  ],
+  user: null,
+  resultMovies: [],
+  moviesList: [],
   movieResult: null,
   loggedIn: false,
 };
@@ -89,8 +79,30 @@ export const movieSlice = createSlice({
       state.resultMovies = action.payload;
       console.log(action.payload);
     },
+    setUser: (state: MovieState, action: PayloadAction<string>) => {
+      state.user = action.payload;
+    },
     setLogin: (state: MovieState, action: PayloadAction<boolean>) => {
       state.loggedIn = action.payload;
+    },
+    setLocalStorageMovies: (state: MovieState) => {
+      const data: LocalStorageMovies = {
+        username: state.user!,
+        movies: state.moviesList,
+      };
+      const movies = JSON.stringify(data);
+      localStorage.setItem(keyLSMovies, movies);
+    },
+    getLocalStorageMovies: (state: MovieState) => {
+      const data = localStorage.getItem(keyLSMovies);
+
+      if (data) {
+        const lsItems: LocalStorageMovies = JSON.parse(data);
+        console.log(lsItems);
+        if (lsItems.username === state.user) {
+          state.moviesList = lsItems.movies;
+        }
+      }
     },
   },
 });
@@ -101,7 +113,10 @@ export const {
   removeMovieFromList,
   setMovie,
   setResults,
+  setUser,
   setLogin,
+  setLocalStorageMovies,
+  getLocalStorageMovies,
 } = movieSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -151,5 +166,6 @@ export const moviesList = (state: RootState) => state.movies.moviesList;
 export const resultMovies = (state: RootState) => state.movies.resultMovies;
 export const movieResult = (state: RootState) => state.movies.movieResult;
 export const loggedIn = (state: RootState) => state.movies.loggedIn;
+export const user = (state: RootState) => state.movies.user;
 
 export default movieSlice.reducer;

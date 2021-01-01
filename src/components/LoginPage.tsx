@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { setLogin as SetLogin } from "../features/movie/movieSlice";
+import {
+  setLogin as SetLogin,
+  setUser,
+  user as User,
+} from "../features/movie/movieSlice";
 import { useDispatch } from "react-redux";
 import users from "../users";
 
@@ -10,12 +14,17 @@ function LoginPage() {
   const [password, setPassword] = useState("");
 
   const checkCredentials = () => {
-    users.forEach((item) => {
-      if (item.login === login && item.password === password) {
-        dispatch(SetLogin(true));
-      }
-    });
+    const result = users.filter(
+      (user) => user.login === login && user.password === password
+    );
+    if (result.length > 0) {
+      dispatch(setUser(login));
+      dispatch(SetLogin(true));
+    } else {
+      alert("Invalid Credentials");
+    }
   };
+
   return (
     <div>
       <h2>Login Page</h2>
