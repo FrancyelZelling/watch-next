@@ -29,7 +29,7 @@ function LoginPage() {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h2>Login Page</h2>
       <input
         type="text"
@@ -41,7 +41,7 @@ function LoginPage() {
         name="password"
         onChange={(event) => setPassword(event.target.value)}
       />
-      <button onClick={checkCredentials}>send</button>
+      <button onClick={checkCredentials}>login</button>
     </div>
   );
 }

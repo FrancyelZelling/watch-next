@@ -27,7 +27,7 @@ const SearchBar: React.FC = (props) => {
 
   return (
     <header>
-      <Link to="/home/" className="app-name">
+      <Link to="/" className="app-name">
         WatchNext
       </Link>
       <div className="search-section">

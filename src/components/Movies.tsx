@@ -7,15 +7,15 @@ const Movies: React.FC = () => {
   const movies = useSelector(moviesList);
   if (movies.length === 0) {
     return (
-      <div>
-        <h2>Movie List</h2>
+      <div className="movielist-container">
+        <h2>Your List</h2>
         <p>Consider adding movies to your list</p>
       </div>
     );
   } else {
     return (
-      <div className="">
-        <h2>Results</h2>
+      <div className="movielist-container">
+        <h2>Your List</h2>
         {movies.map((movie) => (
           <MovieItem key={movie.id} movie={movie} />
         ))}
