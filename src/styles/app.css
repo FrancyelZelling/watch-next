@@ -47,20 +47,24 @@ header {
       border: 2px solid #ffaebc;
       background-color: #a0e7e5; }
   @media screen and (max-width: 720px) {
-    header .search-section > button {
-      display: none; }
-    header .search-bar {
-      width: 200px; } }
+    header {
+      font-size: 0.8rem; }
+      header .app-name,
+      header .login-section {
+        margin: 0 7px; }
+      header .search-section > button {
+        display: none; }
+      header .search-bar {
+        width: 200px; } }
   @media screen and (max-width: 400px) {
     header {
       font-size: 0.8rem; }
       header .search-bar {
         width: 100px; } }
   @media screen and (min-width: 1200px) {
-    header .app-name {
-      margin-left: 150px; }
+    header .app-name,
     header .login-section {
-      margin-right: 150px; } }
+      margin: 0 150px; } }
 
 .movie-item {
   display: flex;
