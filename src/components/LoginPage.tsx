@@ -6,9 +6,11 @@ import {
 } from "../features/movie/movieSlice";
 import { useDispatch } from "react-redux";
 import users from "../users";
+import { Redirect, useHistory } from "react-router-dom";
 
 function LoginPage() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +22,7 @@ function LoginPage() {
     if (result.length > 0) {
       dispatch(setUser(login));
       dispatch(SetLogin(true));
+      history.push("/");
     } else {
       alert("Invalid Credentials");
     }

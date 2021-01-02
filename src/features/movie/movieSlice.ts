@@ -69,7 +69,6 @@ export const movieSlice = createSlice({
       const index = state.moviesList.findIndex(
         (movie) => movie.id === action.payload
       );
-      console.log(index);
       state.moviesList.splice(index, 1);
     },
     setMovie: (state: MovieState, action: PayloadAction<Movie>) => {
@@ -77,7 +76,6 @@ export const movieSlice = createSlice({
     },
     setResults: (state: MovieState, action: PayloadAction<Movie[]>) => {
       state.resultMovies = action.payload;
-      console.log(action.payload);
     },
     setUser: (state: MovieState, action: PayloadAction<string>) => {
       state.user = action.payload;

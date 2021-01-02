@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getLocalStorageMovies } from "../features/movie/movieSlice";
 import Header from "./Header";
@@ -9,6 +14,7 @@ import MovieDetails from "./MovieDetails";
 
 const MainPage: React.FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getLocalStorageMovies());
@@ -18,10 +24,7 @@ const MainPage: React.FC = () => {
     <Router>
       <Switch>
         <div className="App">
-          <Header />
-          <Route exact path="/" component={Movies} />
-          <Route path="/search/:query" component={MovieList} />
-          <Route path="/movie/:id" component={MovieDetails} />
+          <Movies />
         </div>
       </Switch>
     </Router>
