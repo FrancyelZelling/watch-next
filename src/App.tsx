@@ -1,14 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import MainPage from "./components/MainPage";
 import LoginPage from "./components/LoginPage";
-//import { Counter } from "./features/counter/Counter";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useHistory,
-  Redirect,
-} from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { loggedIn } from "./features/movie/movieSlice";
 
@@ -19,7 +12,6 @@ import Header from "./components/Header";
 
 function App() {
   const logged = useSelector(loggedIn);
-  const history = useHistory();
 
   return (
     <Switch>

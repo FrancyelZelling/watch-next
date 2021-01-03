@@ -3,7 +3,6 @@ import { AppThunk, RootState } from "../../app/store";
 import axios from "axios";
 
 interface MovieState {
-  title: string;
   resultMovies: Movie[];
   moviesList: Movie[];
   movieResult: Movie | null;
@@ -31,10 +30,8 @@ interface LocalStorageMovies {
 }
 
 const keyLSMovies = "movies";
-const keyLSUser = "username";
 
 const initialState: MovieState = {
-  title: "ZUpa",
   user: null,
   resultMovies: [],
   moviesList: [],
@@ -49,14 +46,6 @@ export const movieSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-
-      state.title = "velizes & fuzirosn";
-    },
     addMovieToList: (state: MovieState, action: PayloadAction<Movie>) => {
       const check = state.moviesList.find(
         (movie) => movie.id === action.payload.id
@@ -96,7 +85,6 @@ export const movieSlice = createSlice({
 
       if (data) {
         const lsItems: LocalStorageMovies = JSON.parse(data);
-        console.log(lsItems);
         if (lsItems.username === state.user) {
           state.moviesList = lsItems.movies;
         }
@@ -106,7 +94,6 @@ export const movieSlice = createSlice({
 });
 
 export const {
-  increment,
   addMovieToList,
   removeMovieFromList,
   setMovie,
@@ -131,7 +118,6 @@ export const findMovie = (id: string): AppThunk => async (dispatch) => {
       language: "pt-BR",
     },
   });
-  console.log(response);
   const movie: Movie = response.data;
 
   dispatch(setMovie(movie));
@@ -159,7 +145,6 @@ export const searchMovies = (query: string): AppThunk => async (dispatch) => {
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-export const selectTitle = (state: RootState) => state.movies.title;
 export const moviesList = (state: RootState) => state.movies.moviesList;
 export const resultMovies = (state: RootState) => state.movies.resultMovies;
 export const movieResult = (state: RootState) => state.movies.movieResult;

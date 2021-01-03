@@ -1,5 +1,5 @@
 import React from "react";
-import MovieItem from "./MovieItem";
+import MovieListItem from "./MovieListItem";
 import { useSelector } from "react-redux";
 import { moviesList } from "../features/movie/movieSlice";
 
@@ -14,11 +14,13 @@ const Movies: React.FC = () => {
     );
   } else {
     return (
-      <div className="movielist-container">
+      <div className="movielist-component">
         <h2>Your List</h2>
-        {movies.map((movie) => (
-          <MovieItem key={movie.id} movie={movie} />
-        ))}
+        <div className="movielist-container">
+          {movies.map((movie) => (
+            <MovieListItem key={movie.id} movie={movie} />
+          ))}
+        </div>
       </div>
     );
   }

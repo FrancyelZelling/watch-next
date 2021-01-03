@@ -12,11 +12,13 @@ const MovieList: React.FC = () => {
     return <div></div>;
   } else {
     return (
-      <div className="">
+      <div className="search-results-component">
         <h2>Results for {query}</h2>
-        {movies.map((movie) => (
-          <MovieItem key={movie.id} movie={movie} />
-        ))}
+        <div className="search-results-container">
+          {movies.map((movie) => (
+            <MovieItem key={movie.id} movie={movie} />
+          ))}
+        </div>
       </div>
     );
   }

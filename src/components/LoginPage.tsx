@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  setLogin as SetLogin,
-  setUser,
-  user as User,
-} from "../features/movie/movieSlice";
+import { setLogin as SetLogin, setUser } from "../features/movie/movieSlice";
 import { useDispatch } from "react-redux";
 import users from "../users";
 import { Redirect, useHistory } from "react-router-dom";

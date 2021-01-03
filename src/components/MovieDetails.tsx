@@ -5,7 +5,7 @@ import { findMovie, movieResult } from "../features/movie/movieSlice";
 import MovieComponent from "./MovieComponent";
 
 const MovieDetails: React.FC = (props) => {
-  const { id } = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
   const movie = useSelector(movieResult);
   const dispatch = useDispatch();
 
@@ -15,9 +15,12 @@ const MovieDetails: React.FC = (props) => {
   }, [id]);
 
   return (
-    <div>
-      <h2>Movie Details</h2>
-      {movie !== null ? <MovieComponent movie={movie} /> : <h2>not found </h2>}
+    <div className="movie-details-component">
+      {movie !== null ? (
+        <MovieComponent movie={movie} />
+      ) : (
+        <h2>Movie Not Found </h2>
+      )}
     </div>
   );
 };
